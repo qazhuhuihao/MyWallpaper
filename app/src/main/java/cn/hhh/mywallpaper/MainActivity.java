@@ -145,17 +145,18 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case FILE_SELECT_CODE:
                 if (resultCode == RESULT_OK) {
-                    // Get the Uri of the selected file
-                    Uri uri = data.getData();
-                    L.d("File Uri: " + uri.toString());
-                    // Get the path
-                    String path = getPath(this, uri);
-                    L.d("File Path: " + path);
-                    // Get the file instance
-                    // File file = new File(path);
-                    // Initiate the upload
-
                     try {
+                        // Get the Uri of the selected file
+                        Uri uri = data.getData();
+                        L.d("File Uri: " + uri.toString());
+                        // Get the path
+                        String path = getPath(this, uri);
+                        L.d("File Path: " + path);
+                        // Get the file instance
+                        // File file = new File(path);
+                        // Initiate the upload
+
+
                         String name = new File(path).getName();
                         binding.tvVideo.setText(name);
                         SPManager.saveString(getApplicationContext(), HWallpaper.VIDEO_PATH, path);
@@ -178,11 +179,14 @@ public class MainActivity extends AppCompatActivity {
             Cursor cursor;
             try {
                 cursor = context.getContentResolver().query(uri, projection, null, null, null);
-                int column_index = cursor.getColumnIndexOrThrow("_data");
-                if (cursor.moveToFirst()) {
-                    return cursor.getString(column_index);
+                int column_index;
+                if (cursor != null) {
+                    column_index = cursor.getColumnIndexOrThrow("_data");
+                    if (cursor.moveToFirst()) {
+                        return cursor.getString(column_index);
+                    }
+                    cursor.close();
                 }
-                cursor.close();
             } catch (Exception e) {
                 // Eat it  Or Log it.
                 e.printStackTrace();
