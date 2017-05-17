@@ -3,12 +3,14 @@ package cn.hhh.mywallpaper.WallpaperHelper;
 import android.content.Context;
 import android.hardware.Camera;
 import android.view.SurfaceHolder;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 import cn.hhh.mywallpaper.L;
 
 /**
+ * 相机
  * Created by hhh on 2017/5/16.
  */
 
@@ -23,15 +25,17 @@ public class CameraWallpaperHelper implements WallpaperInterface {
     @Override
     public void start(SurfaceHolder holder, Context context) {
         L.d("CameraWallpaper:start");
-        camera = Camera.open();
-        camera.setDisplayOrientation(90);
-
         try {
+            camera = Camera.open();
+            camera.setDisplayOrientation(90);
+
             camera.setPreviewDisplay(holder);
+            camera.startPreview();
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(context, "相机错误", Toast.LENGTH_SHORT).show();
         }
-        camera.startPreview();
+
     }
 
     @Override

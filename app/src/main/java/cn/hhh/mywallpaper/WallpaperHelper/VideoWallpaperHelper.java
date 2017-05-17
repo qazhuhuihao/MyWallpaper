@@ -14,6 +14,7 @@ import cn.hhh.mywallpaper.R;
 import cn.hhh.mywallpaper.manager.SPManager;
 
 /**
+ * 视频
  * Created by hhh on 2017/5/16.
  */
 
@@ -27,7 +28,7 @@ public class VideoWallpaperHelper implements WallpaperInterface {
         mMediaPlayer.setSurface(holder.getSurface());
         try {
             String path = SPManager.getString(context, HWallpaper.VIDEO_PATH, context.getString(R.string.default_video));
-
+            L.d("path:" + path);
             if (1 == SPManager.getInt(context, HWallpaper.VIDEO_ISDEFAULT, 1)) {
                 AssetManager assetMg = context.getAssets();
                 AssetFileDescriptor fileDescriptor = assetMg.openFd(path);
