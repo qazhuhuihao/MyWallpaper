@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyWallpaper</string>
+    <string name="camera">相机</string>
+    <string name="video">视频</string>
+    <string name="mute">是否静音</string>
+    <string name="_lease_open_permissions">Please open permissions</string>
+    <string name="choose_wallpaper">Choose wallpaper</string>
+    <string name="default_video">test1.mp4</string>
+</resources>
