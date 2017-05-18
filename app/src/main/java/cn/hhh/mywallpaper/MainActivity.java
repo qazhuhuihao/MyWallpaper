@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
                     if (binding.rbCamera.isChecked())
                         checkSelfWRITEPermission();
                     else
-                        HWallpaper.setToWallPaper(MainActivity.this);
+                        showFileChooser();
                     break;
                 case R.id.bt_default:
                     SPManager.saveString(getApplicationContext(), HWallpaper.VIDEO_PATH, getString(R.string.default_video));
