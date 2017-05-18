@@ -45,7 +45,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="1dp"
-                    android:autoLink="all"
                     android:maxLength="10"
                     android:textSize="14sp"
                     tools:text="test1.mp4" />

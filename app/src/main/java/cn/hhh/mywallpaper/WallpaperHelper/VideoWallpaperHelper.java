@@ -76,13 +76,9 @@ public class VideoWallpaperHelper implements WallpaperInterface {
         mMediaPlayer.setVolume(1.0f, 1.0f);
     }
 
-    public void changePath(String path) {
-        try {
-            mMediaPlayer.setDataSource(path);
-            mMediaPlayer.prepare();
-            mMediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void changePath(SurfaceHolder holder, Context context) {
+        pause();
+        destroy();
+        create(holder, context);
     }
 }
