@@ -5,5 +5,7 @@
     <string name="mute">是否静音</string>
     <string name="_lease_open_permissions">Please open permissions</string>
     <string name="choose_wallpaper">Choose wallpaper</string>
-    <string name="default_video">test1.mp4</string>
+    <string name="default_video_path">test1.mp4</string>
+    <string name="default_video">默认视频</string>
+    <string name="wallpaper">作为壁纸</string>
 </resources>

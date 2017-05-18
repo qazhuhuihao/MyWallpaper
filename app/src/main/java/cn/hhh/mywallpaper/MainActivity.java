@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         else
             binding.cbVoice.setChecked(true);
 
-        String videoPath = SPManager.getString(getApplicationContext(), HWallpaper.VIDEO_PATH, getString(R.string.default_video));
+        String videoPath = SPManager.getString(getApplicationContext(), HWallpaper.VIDEO_PATH, getString(R.string.default_video_path));
         String videoName = new File(videoPath).getName();
 
         binding.tvVideo.setText(videoName);
@@ -229,9 +229,9 @@ public class MainActivity extends AppCompatActivity {
                         showFileChooser();
                     break;
                 case R.id.bt_default:
-                    SPManager.saveString(getApplicationContext(), HWallpaper.VIDEO_PATH, getString(R.string.default_video));
+                    SPManager.saveString(getApplicationContext(), HWallpaper.VIDEO_PATH, getString(R.string.default_video_path));
                     SPManager.saveInt(getApplicationContext(), HWallpaper.VIDEO_ISDEFAULT, 1);
-                    binding.tvVideo.setText(R.string.default_video);
+                    binding.tvVideo.setText(R.string.default_video_path);
                     break;
                 case R.id.bt_set:
                     checkSelfCAMERAPermission();

@@ -44,7 +44,8 @@
                     android:id="@+id/tv_video"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
+                    android:layout_marginStart="1dp"
+                    android:enabled="false"
                     android:maxLength="10"
                     android:textSize="14sp"
                     tools:text="test1.mp4" />
@@ -54,9 +55,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:autoLink="all"
+                    android:enabled="false"
                     android:scaleX="0.65"
                     android:scaleY="0.65"
-                    android:text="默认视频"
+                    android:text="@string/default_video"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -67,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="作为壁纸" />
+            android:text="@string/wallpaper" />
 
         <TextView
             android:layout_width="wrap_content"

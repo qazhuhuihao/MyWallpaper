@@ -27,7 +27,7 @@ public class VideoWallpaperHelper implements WallpaperInterface {
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setSurface(holder.getSurface());
         try {
-            String path = SPManager.getString(context, HWallpaper.VIDEO_PATH, context.getString(R.string.default_video));
+            String path = SPManager.getString(context, HWallpaper.VIDEO_PATH, context.getString(R.string.default_video_path));
             L.d("path:" + path);
             if (1 == SPManager.getInt(context, HWallpaper.VIDEO_ISDEFAULT, 1)) {
                 AssetManager assetMg = context.getAssets();
