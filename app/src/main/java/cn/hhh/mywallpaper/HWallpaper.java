@@ -130,7 +130,7 @@ public class HWallpaper extends WallpaperService {
 
                         String path = intent.getStringExtra(VIDEO_PATH);
                         if (!TextUtils.isEmpty(path))
-                            ((VideoWallpaperHelper) wallpaperHelper).changePath(path);
+                            ((VideoWallpaperHelper) wallpaperHelper).changePath(getSurfaceHolder(), getApplicationContext());
                     }
                 }
             }, intentFilter);

@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private static final int PERMISSIONS_REQUEST_CAMERA = 454;
+    private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 455;
     private static final int FILE_SELECT_CODE = 0;
-    static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
+    //static final String PERMISSION_CAMERA = Manifest.permission.CAMERA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,15 +100,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 检查权限
+     * 检查相机权限
      */
-    void checkSelfPermission() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), PERMISSION_CAMERA) != PackageManager.PERMISSION_GRANTED) {
+    private void checkSelfCAMERAPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[]{PERMISSION_CAMERA},
+                    new String[]{Manifest.permission.CAMERA},
                     PERMISSIONS_REQUEST_CAMERA);
         } else {
             HWallpaper.setToWallPaper(this);
+        }
+    }
+
+    /**
+     * 检查读写权限
+     */
+    private void checkSelfWRITEPermission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE);
+        } else {
+            showFileChooser();
         }
     }
 
@@ -115,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case PERMISSIONS_REQUEST_CAMERA: {
+            case PERMISSIONS_REQUEST_CAMERA:
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -124,7 +138,16 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), getString(R.string._lease_open_permissions), Toast.LENGTH_SHORT).show();
                 }
-            }
+                break;
+            case PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    showFileChooser();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), getString(R.string._lease_open_permissions), Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
@@ -156,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
                         // File file = new File(path);
                         // Initiate the upload
 
-
                         String name = new File(path).getName();
                         binding.tvVideo.setText(name);
                         SPManager.saveString(getApplicationContext(), HWallpaper.VIDEO_PATH, path);
@@ -179,9 +201,8 @@ public class MainActivity extends AppCompatActivity {
             Cursor cursor;
             try {
                 cursor = context.getContentResolver().query(uri, projection, null, null, null);
-                int column_index;
-                if (cursor != null) {
-                    column_index = cursor.getColumnIndexOrThrow("_data");
+                if (null != cursor) {
+                    int column_index = cursor.getColumnIndexOrThrow("_data");
                     if (cursor.moveToFirst()) {
                         return cursor.getString(column_index);
                     }
@@ -202,7 +223,10 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.tv_video:
-                    showFileChooser();
+                    if (binding.rbCamera.isChecked())
+                        checkSelfWRITEPermission();
+                    else
+                        HWallpaper.setToWallPaper(MainActivity.this);
                     break;
                 case R.id.bt_default:
                     SPManager.saveString(getApplicationContext(), HWallpaper.VIDEO_PATH, getString(R.string.default_video));
@@ -210,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                     binding.tvVideo.setText(R.string.default_video);
                     break;
                 case R.id.bt_set:
-                    checkSelfPermission();
+                    checkSelfCAMERAPermission();
                     break;
             }
         }
